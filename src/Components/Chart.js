@@ -31,7 +31,7 @@ function Chart(props) {
             layout={{
                 autosize: true,
                 // width: 1400,
-                // height: 740, 
+                height: 540, 
                 title: props.ticker
             }}
         />

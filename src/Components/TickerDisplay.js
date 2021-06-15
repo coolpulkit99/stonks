@@ -11,22 +11,24 @@ function TickerDisplay(props) {
 
     // let listItems=[]
     // for(var i =0 ;i<Math.min(3);i++)
-    const addToWatchlist = () => { props.addToWatchlist(props.current) }
-    const removeFromWatchlist = () => { props.removeFromWatchlist(props.current) }
+    // const addToWatchlist = () => { props.addToWatchlist(props.current) }
+    // const removeFromWatchlist = () => { props.removeFromWatchlist(props.current) }
 
 
     return (
-        <div>
+        <div className="flexbox stocklist">
+            <Pagination >
+                <Pagination.Prev className="buttonnormalize" onClick={() => props.updateTicker(props.current - 1)}>Back</Pagination.Prev >
+                <Pagination.Next className="buttonnormalize" onClick={() => props.updateTicker(props.current + 1)}>Next</Pagination.Next >
+                </Pagination>
             <Pagination>
-                <Pagination.Prev onClick={() => props.updateTicker(props.current - 1)}>Back</Pagination.Prev >
-                <Pagination.Next onClick={() => props.updateTicker(props.current + 1)}>Next</Pagination.Next >
-
+            <Pagination.Next className="buttonnormalize">Next</Pagination.Next >
             </Pagination>
-            <Pagination>
-                Watchlist
-                <Pagination.Prev onClick={addToWatchlist}>Add to Watchlist</Pagination.Prev >
-                <Pagination.Next onClick={removeFromWatchlist}>Remove from Watchlist</Pagination.Next >
-            </Pagination>
+            {/* <Pagination>
+                
+                <Pagination.Prev className="buttonnormalize" onClick={addToWatchlist}>Add</Pagination.Prev >
+                <Pagination.Next className="buttonnormalize" onClick={removeFromWatchlist}>Remove</Pagination.Next >
+            </Pagination> */}
             <ListGroup className="list" vertical> {listItems} </ListGroup>
 
         </div>

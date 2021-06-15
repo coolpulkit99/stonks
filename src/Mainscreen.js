@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, ButtonGroup, ListGroup, Modal } from "react-bootstrap";
+import { Button, ButtonGroup, Dropdown, ListGroup, Modal } from "react-bootstrap";
 import ListsScreen from "./Components/ListsScreen";
 import axios from "axios"
 
@@ -52,9 +52,9 @@ function Mainscreen() {
                     setShow(true);
                 });
         }
-        else if (type == "filtered") {
+        else if (type.indexOf("filtered")!=-1) {
             console.log("results");
-            axios('http://localhost:8087/filtered')
+            axios('http://localhost:8087/filter/'+type.split("-")[1])
                 .then((results) => {
                     console.log(results);
                     modalContentToRender = (<ListsScreen pointer={0} tickers={results.data.tickers} />);
@@ -70,23 +70,36 @@ function Mainscreen() {
 
     return (
         <div className="flexbox">
-            
+
             <ButtonGroup vertical>
-            {/* <ListGroup.Item variant="danger">Stocks</ListGroup.Item> */}
                 <Button size="lg" onClick={() => { handleShow("50") }}>Nifty 50</Button>
                 <Button size="lg" onClick={() => { handleShow("100") }}>Nifty 100</Button>
                 <Button size="lg" onClick={() => { handleShow("200") }}>Nifty 200</Button>
-                <Button size="lg"onClick={() => { handleShow("500") }}>Nifty 500</Button>
-                <Button size="lg" onClick={() => { handleShow("filtered") }}>Filtered</Button>
+                <Button size="lg" onClick={() => { handleShow("500") }}>Nifty 500</Button>
+
+                <Dropdown as={ButtonGroup}>
+                    <Button size="lg" onClick={() => { handleShow("filtered-50") }}>Filtered</Button>
+
+                    <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item onClick={() => { handleShow("filtered-50") } }>Filtered Nifty50</Dropdown.Item>
+                        <Dropdown.Item onClick={() => { handleShow("filtered-100") } }>Filtered Nifty100</Dropdown.Item>
+                        <Dropdown.Item onClick={() => { handleShow("filtered-200") } }>Filtered Nifty200</Dropdown.Item>
+                        <Dropdown.Item onClick={() => { handleShow("filtered-500") } }>Filtered Nifty500</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+
             </ButtonGroup>
-            <Modal 
+            <Modal
                 className="flexbox modalclass"
                 backdrop='static'
-                size="lg"
+                size="xl"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 show={show} onHide={handleClose}>
                 <Modal.Header closeButton />
+                <br></br>
                 {modalContent}
             </Modal>
         </div>

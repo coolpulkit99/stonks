@@ -18,7 +18,7 @@ class ListsScreen extends Component {
   componentDidMount() {
     console.log("called")
     this.state["tickers"] = this.props.tickers;
-    console.log(this.props.tickers);
+    // console.log(this.props.tickers);
     this.state["pointer"] = this.props.pointer;
     this.setState(this.state);
   }
@@ -44,7 +44,7 @@ class ListsScreen extends Component {
       <div className="framebox">
         <TickerDisplay className="tickerlist" updateTicker={this.updateTicker} tickers={this.state.tickers} current={this.state.pointer} addToWatchlist={this.addToWatchlist} removeFromWatchlist={this.removeFromWatchlist}/>
         <ChartFrame className="chartdisplay" ticker={this.state.tickers.length > 0 ? this.state.tickers[this.state.pointer] : []}></ChartFrame>
-        <Watchlist watchlist={this.state.watchlist} tickers={this.state.tickers}></Watchlist>
+        <Watchlist watchlist={this.state.watchlist} tickers={this.state.tickers} current={this.state.pointer} addToWatchlist={this.addToWatchlist} removeFromWatchlist={this.removeFromWatchlist}></Watchlist>
       </div>
     );
 

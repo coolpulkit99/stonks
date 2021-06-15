@@ -20,10 +20,17 @@ function Watchlist(props) {
         }
     }
 
+    const addToWatchlist = () => { props.addToWatchlist(props.current) }
+    const removeFromWatchlist = () => { props.removeFromWatchlist(props.current) }
 
     return (
         <div>
             <ListGroup.Item variant="danger">Watchlist</ListGroup.Item>
+            <Pagination>
+                
+                <Pagination.Prev className="buttonnormalize" onClick={addToWatchlist}>Add</Pagination.Prev >
+                <Pagination.Next className="buttonnormalize" onClick={removeFromWatchlist}>Remove</Pagination.Next >
+            </Pagination>
             <ListGroup className="list" vertical>
 
                 {listItems}

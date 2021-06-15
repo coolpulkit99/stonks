@@ -41,6 +41,10 @@ code {
 }
 .modalclass{
   /* max-width: 50%; */
+  height: 100vh;
+  /* width: 80%; */
+  /* max-width: 100%; */
+  width: 100vw;
   
 }
 
@@ -56,4 +60,13 @@ body{
 html{
   height: 100%;
   width: 100%;
+}
+
+.stocklist{
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.buttonnormalize{
+  flex-grow: 1;
 }
