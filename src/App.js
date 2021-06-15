@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {}
+    this.updateTicker = this.updateTicker.bind(this);
+  }
+  componentDidMount(){
+    axios('http://localhost:8087/filtered')
+      .then((results) => {
+        console.log(results.data)
+        this.state["tickers"]=results.data.tickers;
+        this.state["pointer"]=0;
+        this.setState(this.state);
+      });
+  }
+  
+  updateTicker(index){
+    this.state["pointer"]=index;
+    this.setState(this.state);
+  }
+  
+  render(){
+    return (
+      Ticker
+    );
+
+  }
+
+
+
 }
-
-export default App;
