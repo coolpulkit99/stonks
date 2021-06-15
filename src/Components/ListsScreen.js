@@ -10,22 +10,17 @@ class ListsScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { tickers: ["AAPL"], pointer: 0, watchlist: [] }
+    this.state = { tickers: ["AAPL"], pointer: 0, watchlist: new Set() }
     this.updateTicker = this.updateTicker.bind(this);
+    this.addToWatchlist=this.addToWatchlist.bind(this);
+    this.removeFromWatchlist=this.removeFromWatchlist.bind(this);
   }
   componentDidMount() {
     console.log("called")
-    this.state["tickers"] =this.props.tickers;
+    this.state["tickers"] = this.props.tickers;
+    console.log(this.props.tickers);
     this.state["pointer"] = this.props.pointer;
-        this.setState(this.state);
-
-    // axios('http://localhost:8087/filtered')
-    //   .then((results) => {
-    //     console.log(results.data)
-    //     this.state["tickers"] = ["AAPL", "AAPL", "AAPL", "AAPL", "AAPL", "AAPL", "AAPL", "AAPL", "AAPL", "AAPL", "AAPL", "AAPL", "AAPL"]//results.data.tickers;
-    //     this.state["pointer"] = 0;
-    //     this.setState(this.state);
-    //   });
+    this.setState(this.state);
   }
 
   updateTicker(index) {
@@ -35,11 +30,19 @@ class ListsScreen extends Component {
     }
   }
 
+  addToWatchlist(index) {
+    this.state["watchlist"].add(index);
+    this.setState(this.state);
+  }
+  removeFromWatchlist(index) {
+    this.state["watchlist"].delete(index);
+    this.setState(this.state);
+  }
   render() {
     console.log(this.state)
     return (
       <div className="framebox">
-        <TickerDisplay className="tickerlist" updateTicker={this.updateTicker} tickers={this.state.tickers} current={this.state.pointer} />
+        <TickerDisplay className="tickerlist" updateTicker={this.updateTicker} tickers={this.state.tickers} current={this.state.pointer} addToWatchlist={this.addToWatchlist} removeFromWatchlist={this.removeFromWatchlist}/>
         <ChartFrame className="chartdisplay" ticker={this.state.tickers.length > 0 ? this.state.tickers[this.state.pointer] : []}></ChartFrame>
         <Watchlist watchlist={this.state.watchlist} tickers={this.state.tickers}></Watchlist>
       </div>
