@@ -20,11 +20,11 @@ function listify(data) {
   });
 
   let response = {
-    open: open,
-    high: high,
-    low: low,
-    close: close,
-    date: date,
+    open: open.slice(43),
+    high: high.slice(43),
+    low: low.slice(43),
+    close: close.slice(43),
+    date: date.slice(43),
     average: sma(close, 44),
     dateAverage: date.slice(43)
   }
@@ -49,13 +49,18 @@ class ChartFrame extends Component {
   }
 
   componentDidMount() {
-    axios('http://localhost:8087/ticker/'+this.props["ticker"])
-      .then((results) => {
-        console.log(results.data)
-        this.setState(reFormat(results.data))
-      }
-    );
+    
   }
+
+  componentWillReceiveProps(nextProps){
+    axios('http://localhost:8087/ticker/'+nextProps["ticker"])
+    .then((results) => {
+      console.log(results.data)
+      this.setState(reFormat(results.data))
+    }
+  );
+  }
+
   render() {
     return (
       <div>
