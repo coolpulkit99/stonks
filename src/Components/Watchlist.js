@@ -1,4 +1,4 @@
-import { ListGroup, Pagination } from "react-bootstrap";
+import { ListGroup, OverlayTrigger, Pagination, Tooltip } from "react-bootstrap";
 
 function Watchlist(props) {
     // console.log(props);
@@ -7,7 +7,7 @@ function Watchlist(props) {
     const listItems = Array.from(props.watchlist).map(index => {
         // console.log(tickers[index]);
         return (
-            <ListGroup.Item as="li">
+            <ListGroup.Item as="li" onClick={() => props.updateTicker(index)}>
                 {tickers[index]}
             </ListGroup.Item>
         );
@@ -25,7 +25,17 @@ function Watchlist(props) {
 
     return (
         <div>
-            <ListGroup.Item variant="danger">Watchlist</ListGroup.Item>
+            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">    Click to copy watchlist!</Tooltip>}>
+            <ListGroup.Item className="buttonnormalize" variant="danger" onClick={()=>{
+                var input = document.createElement("input");
+                input.type = "text";
+                input.value= Array.from(props.watchlist).map(index=>tickers[index]).join(" ");
+                document.body.appendChild(input);
+                input.select();
+                document. execCommand("copy");   
+                document.body.removeChild(input);
+            }}>Watchlist</ListGroup.Item>
+            </OverlayTrigger>
             <Pagination>
                 
                 <Pagination.Prev className="buttonnormalize" onClick={addToWatchlist}>Add</Pagination.Prev >

@@ -42,9 +42,25 @@ class ListsScreen extends Component {
     console.log(this.state)
     return (
       <div className="framebox">
-        <TickerDisplay className="tickerlist" updateTicker={this.updateTicker} tickers={this.state.tickers} current={this.state.pointer} addToWatchlist={this.addToWatchlist} removeFromWatchlist={this.removeFromWatchlist}/>
-        <ChartFrame className="chartdisplay" ticker={this.state.tickers.length > 0 ? this.state.tickers[this.state.pointer] : []}></ChartFrame>
-        <Watchlist watchlist={this.state.watchlist} tickers={this.state.tickers} current={this.state.pointer} addToWatchlist={this.addToWatchlist} removeFromWatchlist={this.removeFromWatchlist}></Watchlist>
+        <TickerDisplay 
+        className="tickerlist" 
+        updateTicker={this.updateTicker} 
+        tickers={this.state.tickers} 
+        current={this.state.pointer} 
+        addToWatchlist={this.addToWatchlist} 
+        removeFromWatchlist={this.removeFromWatchlist}/>
+        
+        <ChartFrame className="chartdisplay" 
+        ticker={this.state.tickers.length > 0 ? this.state.tickers[this.state.pointer] : []}/>
+        
+        <Watchlist 
+        watchlist={this.state.watchlist} 
+        updateTicker={this.updateTicker} 
+        tickers={this.state.tickers} 
+        current={this.state.pointer} 
+        addToWatchlist={this.addToWatchlist} 
+        removeFromWatchlist={this.removeFromWatchlist}/>
+
       </div>
     );
 

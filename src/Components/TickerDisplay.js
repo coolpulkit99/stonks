@@ -22,7 +22,7 @@ function TickerDisplay(props) {
                 <Pagination.Next className="buttonnormalize" onClick={() => props.updateTicker(props.current + 1)}>Next</Pagination.Next >
                 </Pagination>
             <Pagination>
-            <Pagination.Next className="buttonnormalize">Next</Pagination.Next >
+            <Pagination.Next className="buttonnormalize" disabled>{props.tickers.length + " Tickers"}</Pagination.Next >
             </Pagination>
             {/* <Pagination>
                 
