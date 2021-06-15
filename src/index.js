@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Mainscreen from './Mainscreen';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Mainscreen />
   </React.StrictMode>,
   document.getElementById('root')
 );
