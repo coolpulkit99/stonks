@@ -7,7 +7,7 @@ function Watchlist(props) {
     const listItems = Array.from(props.watchlist).map(index => {
         // console.log(tickers[index]);
         return (
-            <ListGroup.Item as="li" onClick={() => props.updateTicker(index)}>
+            <ListGroup.Item action as="li" onClick={() => props.updateTicker(index)}>
                 {tickers[index]}
             </ListGroup.Item>
         );
@@ -26,7 +26,7 @@ function Watchlist(props) {
     return (
         <div>
             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">    Click to copy watchlist!</Tooltip>}>
-            <ListGroup.Item className="buttonnormalize" variant="danger" onClick={()=>{
+            <ListGroup.Item className="buttonnormalize" action style={{textAlign: "center"}} variant="Primary" onClick={()=>{
                 var input = document.createElement("input");
                 input.type = "text";
                 input.value= Array.from(props.watchlist).map(index=>tickers[index]).join(" ");
