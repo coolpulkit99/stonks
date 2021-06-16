@@ -1,8 +1,13 @@
 import axios from "axios";
-import { Component } from "react";
-import ChartFrame from "./ChartFrame";
-import TickerDisplay from "./TickerDisplay";
-import Watchlist from "./Watchlist";
+import React,{Suspense, Component } from "react";
+
+// import ChartFrame from "./ChartFrame";
+// import TickerDisplay from "./TickerDisplay";
+// import Watchlist from "./Watchlist";
+
+const ChartFrame = React.lazy(() => import('./ChartFrame'));
+const TickerDisplay = React.lazy(() => import('./TickerDisplay'));
+const Watchlist = React.lazy(() => import('./Watchlist'));
 
 
 
@@ -12,8 +17,8 @@ class ListsScreen extends Component {
     super(props);
     this.state = { tickers: ["AAPL"], pointer: 0, watchlist: new Set() }
     this.updateTicker = this.updateTicker.bind(this);
-    this.addToWatchlist=this.addToWatchlist.bind(this);
-    this.removeFromWatchlist=this.removeFromWatchlist.bind(this);
+    this.addToWatchlist = this.addToWatchlist.bind(this);
+    this.removeFromWatchlist = this.removeFromWatchlist.bind(this);
   }
   componentDidMount() {
     console.log("called")
@@ -42,25 +47,26 @@ class ListsScreen extends Component {
     console.log(this.state)
     return (
       <div className="framebox">
-        <TickerDisplay 
-        className="tickerlist" 
-        updateTicker={this.updateTicker} 
-        tickers={this.state.tickers} 
-        current={this.state.pointer} 
-        addToWatchlist={this.addToWatchlist} 
-        removeFromWatchlist={this.removeFromWatchlist}/>
-        
-        <ChartFrame className="chartdisplay" 
-        ticker={this.state.tickers.length > 0 ? this.state.tickers[this.state.pointer] : []}/>
-        
-        <Watchlist 
-        watchlist={this.state.watchlist} 
-        updateTicker={this.updateTicker} 
-        tickers={this.state.tickers} 
-        current={this.state.pointer} 
-        addToWatchlist={this.addToWatchlist} 
-        removeFromWatchlist={this.removeFromWatchlist}/>
+        <Suspense fallback={<div>Loading...</div>}>
+          <TickerDisplay
+            className="tickerlist"
+            updateTicker={this.updateTicker}
+            tickers={this.state.tickers}
+            current={this.state.pointer}
+            addToWatchlist={this.addToWatchlist}
+            removeFromWatchlist={this.removeFromWatchlist} />
 
+          <ChartFrame className="chartdisplay"
+            ticker={this.state.tickers.length > 0 ? this.state.tickers[this.state.pointer] : []} />
+
+          <Watchlist
+            watchlist={this.state.watchlist}
+            updateTicker={this.updateTicker}
+            tickers={this.state.tickers}
+            current={this.state.pointer}
+            addToWatchlist={this.addToWatchlist}
+            removeFromWatchlist={this.removeFromWatchlist} />
+        </Suspense>
       </div>
     );
 
